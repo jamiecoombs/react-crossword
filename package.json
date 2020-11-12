@@ -1,6 +1,6 @@
 {
-  "name": "react-crossword",
-  "version": "0.2.0",
+  "name": "jamie-react-crossword",
+  "version": "0.2.20",
   "author": "Chris Zetter",
   "private": false,
   "dependencies": {
@@ -67,9 +67,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zetter/react-crossword.git"
+    "url": "https://github.com/jamiecoombs/react-crossword.git"
   },
-  "homepage": "https://github.com/zetter/react-crossword",
+  "homepage": "https://github.com/jamiecoombs/react-crossword",
   "scripts": {
     "eslint-fix": "eslint --color --fix src/javascripts examples *.js",
     "eslint": "eslint --color src/javascripts examples *.js",

@@ -9,6 +9,7 @@ class Controls extends Component {
   render() {
     const hasSolutions = this.props.hasSolutions;
     const hasFocus = this.props.clueInFocus;
+    const showAnagramHelper = false;
     const controls = {
       clue: [],
       grid: [],
@@ -68,6 +69,7 @@ class Controls extends Component {
       );
 
       // anagram helper
+      if (showAnagramHelper) {
       controls.clue.push(
         <button
           className={`${buttonClassName} ${buttonCurrentClassName}`}
@@ -77,9 +79,10 @@ class Controls extends Component {
           key="anagram"
           data-link-name="Show anagram helper"
         >
-          Anagram helper
+          Anagram hXelper
         </button>,
       );
+      }
 
       if (hasSolutions) {
         controls.clue.unshift(

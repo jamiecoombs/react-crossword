@@ -44,7 +44,7 @@ class Crossword extends Component {
     this.columns = dimensions.cols;
     this.rows = dimensions.rows;
     this.clueMap = buildClueMap(this.props.data.entries);
-
+    this.author = this.props.author;
     this.state = {
       grid: buildGrid(
         dimensions.rows,
@@ -126,7 +126,7 @@ class Crossword extends Component {
           if (this.cellIsEmpty(cell.x, cell.y)) {
             this.focusPrevious();
           } else {
-            this.setCellValue(cell.x, cell.y, '');
+            this.setCellValue(cell.x, cell.y, '', this.author);
             this.saveGrid();
           }
         }
@@ -225,9 +225,11 @@ class Crossword extends Component {
     this.setState({
       grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
         const previousValue = cell.value;
+        const previousAuthor = cell.author;
         cell.value = '';
+        cell.author = this.author;
         this.props.onMove({
-          x: gridX, y: gridY, value: '', previousValue,
+          x: gridX, y: gridY, value: '', previousValue: previousValue, author: cell.author, previousAuthor: previousAuthor
         });
         return cell;
       }),
@@ -255,9 +257,11 @@ class Crossword extends Component {
             cellsInFocus.some(c => c.x === gridX && c.y === gridY)
           ) {
             const previousValue = cell.value;
+            const previousAuthor = cell.author;
             cell.value = '';
+            cell.author = this.author;
             this.props.onMove({
-              x: gridX, y: gridY, value: '', previousValue,
+              x: gridX, y: gridY, value: '', previousValue: previousValue, author: cell.author, previousAuthor: previousAuthor
             });
           }
           return cell;
@@ -325,16 +329,18 @@ class Crossword extends Component {
     }
   }
 
-  setCellValue(x, y, value, triggerOnMoveCallback = true) {
+  setCellValue(x, y, value, author, triggerOnMoveCallback = true) {
     this.setState({
       grid: mapGrid(this.state.grid, (cell, gridX, gridY) => {
         if (gridX === x && gridY === y) {
           const previousValue = cell.value;
+          const previousAuthor = cell.author;
           cell.value = value;
           cell.isError = false;
+          cell.author = author;
           if (triggerOnMoveCallback) {
             this.props.onMove({
-              x, y, value, previousValue,
+              x, y, value, previousValue: previousValue, author: cell.author, previousAuthor: previousAuthor
             });
           }
         }
@@ -371,7 +377,7 @@ class Crossword extends Component {
             && characterUppercase.length === 1
             && cell
     ) {
-      this.setCellValue(cell.x, cell.y, characterUppercase);
+      this.setCellValue(cell.x, cell.y, characterUppercase, this.author);
       this.saveGrid();
       this.focusNext();
     }
@@ -685,9 +691,11 @@ class Crossword extends Component {
               ? x - entry.position.x
               : y - entry.position.y;
             const previousValue = cell.value;
+            const previousAuthor = cell.author;
+            cell.author = this.author;
             cell.value = entry.solution[n];
             this.props.onMove({
-              x, y, value: cell.value, previousValue,
+              x, y, value: cell.value, previousValue: previousValue, author: cell.author, previousAuthor: previousAuthor
             });
           }
 
@@ -718,9 +726,11 @@ class Crossword extends Component {
             badCells.some(bad => bad.x === gridX && bad.y === gridY)
           ) {
             const previousValue = cell.value;
+            const previousAuthor = cell.author;
             cell.value = '';
+            cell.author = this.author;
             this.props.onMove({
-              x: gridX, y: gridY, value: '', previousValue,
+              x: gridX, y: gridY, value: '', previousValue: previousValue, author: cell.author, previousAuthor: previousAuthor
             });
           }
 

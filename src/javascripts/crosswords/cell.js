@@ -54,9 +54,17 @@ class Cell extends Component {
         </text>
       );
     }
-
+    
+    let cellAuthor = null;
+    if (this.props.author !== undefined) {
+      cellAuthor = (
+        <title>{this.props.author}</title>
+      );
+    }
+    
     return (
       <g onClick={this.onClick.bind(this)}>
+        {cellAuthor}
         <rect
           x={left}
           y={top}

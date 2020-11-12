@@ -173,8 +173,12 @@ const buildGrid = (rows, columns, entries, savedState) => {
     isError: false,
     isAnimating: false,
     value:
-                savedState && savedState[x] && savedState[x][y]
-                  ? savedState[x][y]
+                savedState && savedState[x] && savedState[x][y] && savedState[x][y]["v"]
+                  ? savedState[x][y]["v"]
+                  : '',
+    author:
+                savedState && savedState[x] && savedState[x][y] && savedState[x][y]["author"]
+                  ? savedState[x][y]["author"]
                   : '',
   })));
 
