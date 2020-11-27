@@ -55,6 +55,7 @@ class Crossword extends Component {
       cellInFocus: null,
       directionOfEntry: null,
       showAnagramHelper: false,
+      focussedAuthor: '',
     };
   }
 
@@ -198,6 +199,7 @@ class Crossword extends Component {
       }
       this.focusClue(x, y, newDirection);
     }
+    this.state.focussedAuthor = this.getCellAuthor(x, y);
   }
 
   onCheat() {
@@ -352,6 +354,10 @@ class Crossword extends Component {
 
   getCellValue(x, y) {
     return this.state.grid[x][y].value;
+  }
+  
+  getCellAuthor(x, y) {
+    return this.state.grid[x][y].author;
   }
 
   setReturnPosition(position) {
@@ -593,6 +599,7 @@ class Crossword extends Component {
           y,
         },
         directionOfEntry: direction,
+        focussedAuthor: this.getCellAuthor(x, y),
       });
 
       // Side effect
@@ -810,6 +817,7 @@ class Crossword extends Component {
             this.game = game;
           }}
         >
+          <div className="crossword__cell-author">{this.state.focussedAuthor != '' ? 'Selected cell last updated by ' + this.state.focussedAuthor : 'Selected cell not yet updated'}</div>
           <div
             className="crossword__sticky-clue-wrapper"
             ref={(stickyClueWrapper) => {

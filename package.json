@@ -1,6 +1,6 @@
 {
   "name": "jamie-react-crossword",
-  "version": "0.2.20",
+  "version": "0.2.32",
   "author": "Chris Zetter",
   "private": false,
   "dependencies": {
